@@ -9,13 +9,21 @@ Ban tool designed to torch fendas, leaving a slight feeling of burnout. Download
 How it works
 -------------------
 
-Overburn uses an HTML session using sweeze's NSDotPy library. Using this session, it will load the reports page and handle bans. To abide by NS rules, loading the reports page and banning are done manually. 
+Hellfire uses an HTML session using sweeze's NSDotPy library. Using this session, it will load the reports page and handle bans. To abide by NS rules, loading the reports page and banning are done manually. 
 
-Please note that if you log into a nation, it will stop functioning and you will have to manually input a login session. NSDotPy also uses the keyboard function, meaning it will work regardless if you are not on the tab of this script.
+**PLEASE NOTE** that if you log into a nation, it will stop functioning and you will have to manually input a login session. NSDotPy also uses the keyboard function, meaning it will work regardless if you are not on the tab of this script.
 
-Use
+Usage
 -----------------------
 
-Overburn allows you to set keybinds, set different parameters for the reports page, and logs you in just in case you happen to sign into your nation from another browser/script. 
+Hellfire will ask for the nation name and its password of the nation you will be using to ban. 
 
-tbd
+Then just keep pressing enter.
+
+TO-DO
+-----------------------
+
+- [ ] Set separate keybinds for re-logging and refresing the reports page, in case you happen to log in from another session.
+- [ ] Add a fancy logo
+- [ ] fully integrate with nsdotpy to make the code cleaner, instead of calling the private methods directly from the session
+- [ ] more coming ahead
