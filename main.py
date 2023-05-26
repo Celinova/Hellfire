@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def now():
-    return datetime.now().strftime("%I:%M:%S %p")
+    return datetime.now().strftime("%I:%M:%S %p") # Returns time in this format: 04:20:19 PM
 
 try:
     # The variable below is for the Ctrl+C text to be right below to the line
