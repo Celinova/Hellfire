@@ -3,7 +3,7 @@ Overburn
 
 Ban tool designed to torch fendas, leaving a slight feeling of burnout. Download the latest release `here`_.
 
-.. _here: https://github.com/Celinova/Overburn
+.. _here: https://github.com/Celinova/Overburn/releases/latest
 
 
 How it works
