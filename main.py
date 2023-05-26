@@ -38,11 +38,7 @@ try:
     )
 
     authenticated = session.login(nation_name, password)
-
-    if authenticated:
-        print(f"{now()} Authentication successful!")
-    else:
-        print(f"{now()} Authentication failed.")
+    print(f"{now()} Authentication successful!" if authenticated else f"{now()} Authentication failed.")
 
     last_time = time.time()  # initialize time of the last response
     banned_nations = set()  # set of banned nations
@@ -68,22 +64,23 @@ try:
 
         # Process the response with BeautifulSoup
         reports_soup = BeautifulSoup(reports_response.text, "html.parser")
-        if str(reports_response.status_code) != "200":
-          print(now() + " " + reports_response.status_code)
+        print(now() + " HTTP" + reports_response.status_code)
         
         # Parse arriving nations
         for report in reports_soup.find_all('li'):
+            # If nation was ejected and banned but not on the banned nations list, add them not to waste time trying to banject an already banjected nation
+            if (" ejected and banned " in report.text) and (nation := report.find('a', class_='nlink').find('span', class_='nnameblock').text not in banned_nations):
+                banned_nations.add(nation)
+                print(f"{now()} {nation} has already been banned. Skipping...")
             if " arrived from " in report.text:
                 nation = report.find('a', class_='nlink').find('span', class_='nnameblock').text
                 if nation not in banned_nations:
                     success = session.banject(nation)
                     if success:
-                        now = datetime.now().strftime("%I:%M:%S %p")
-                        print(f"{now} Successfully banjected {nation}.")
+                        print(f"{now()} Successfully banjected {nation}.")
                         banned_nations.add(nation)
                     else:
-                        now = datetime.now().strftime("%I:%M:%S %p")
-                        print(f"{now} Failed to banject {nation}.")
+                        print(f"{now()} Failed to banject {nation}.")
                         banned_nations.add(nation)
 except KeyboardInterrupt:
     if logging_in:
