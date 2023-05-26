@@ -19,7 +19,7 @@ nation_name = input("Please enter your Nation Name: ")
 password = input("Please enter your Password: ")
 
 session = NSSession(
-    "Overburn",
+    "Hellfire",
     "1.0",
     "The Chinese Soviet",
     nation_name,
