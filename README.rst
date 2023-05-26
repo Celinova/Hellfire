@@ -1,9 +1,13 @@
 Hellfire
 ========
 
-Ban tool designed to torch fendas, leaving a slight feeling of burnout. Download the latest release `here`_.
+.. image:: /assets/hellfire.png
+   :align: center
+
+Ban tool designed to torch fendas, leaving a slight feeling of burnout. Logo by Jyezet. Download the latest release `here`_.
 
 .. _here: https://github.com/Celinova/Overburn/releases/latest
+
 
 
 How it works
