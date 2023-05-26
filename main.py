@@ -69,9 +69,9 @@ try:
         # Parse arriving nations
         for report in reports_soup.find_all('li'):
             # If nation was ejected and banned but not on the banned nations list, add them not to waste time trying to banject an already banjected nation
-            if (" ejected and banned " in report.text) and (nation := report.find('a', class_='nlink').find('span', class_='nnameblock').text not in banned_nations):
+            nation_alrban =  report.find('a', class_='nlink').find('span', class_='nnameblock').text
+            if (" ejected and banned " in report.text) and (nation_alrban not in banned_nations):
                 banned_nations.add(nation)
-                print(f"{now()} {nation} has already been banned. Skipping...")
             if " arrived from " in report.text:
                 nation = report.find('a', class_='nlink').find('span', class_='nnameblock').text
                 if nation not in banned_nations:
