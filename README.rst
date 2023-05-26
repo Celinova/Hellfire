@@ -1,4 +1,4 @@
-Overburn
+Hellfire
 ========
 
 Ban tool designed to torch fendas, leaving a slight feeling of burnout. Download the latest release `here`_.
