@@ -28,7 +28,7 @@ TO-DO
 -----------------------
 
 - [⭕] Set separate keybinds for re-logging and refresing the reports page, in case you happen to log in from another session.
-- [⭕] Add a fancy logo
+- [✔] Add a fancy logo
 - [⭕] fully integrate with nsdotpy to make the code cleaner, instead of calling the private methods directly from the session
 - [⭕] faster pageloads
 - [⭕] keeps track of banned nations from the reports page so it doesn't have to iterate through already banned nations by other banners
