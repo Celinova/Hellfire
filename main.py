@@ -64,7 +64,7 @@ try:
 
         # Process the response with BeautifulSoup
         reports_soup = BeautifulSoup(reports_response.text, "html.parser")
-        print(now() + " HTTP " + reports_response.status_code)
+        print(now() + " HTTP " + str(reports_response.status_code))
         
         # Parse arriving nations
         for report in reports_soup.find_all('li'):
