@@ -14,61 +14,80 @@
 import time
 from nsdotpy.session import NSSession
 from bs4 import BeautifulSoup
+from datetime import datetime
 
-nation_name = input("Please enter your Nation Name: ")
-password = input("Please enter your Password: ")
+def now():
+    return datetime.now().strftime("%I:%M:%S %p")
 
-session = NSSession(
-    "Hellfire",
-    "1.0",
-    "The Chinese Soviet",
-    nation_name,
-    "enter",
-    "https://github.com/Celinova/Overburn"
-)
+try:
+    # The variable below is for the Ctrl+C text to be right below to the line
+    # The input() function forces all printed text to be on the same line, but regular print functions won't
+    # So depending on the current phase of execution, you should add a \n or not
+    logging_in = True
+    nation_name = input(f"{now()} Please enter your Nation Name: ")
+    password = input(f"{now()} Please enter your Password: ")
 
-authenticated = session.login(nation_name, password)
+    logging_in = False
+    session = NSSession(
+        "Hellfire",
+        "0.5.1",
+        "The Chinese Soviet",
+        nation_name,
+        "enter",
+        "https://github.com/Celinova/Hellfire"
+    )
 
-if authenticated:
-    print("Authentication successful!")
-else:
-    print("Authentication failed.")
+    authenticated = session.login(nation_name, password)
 
-last_time = time.time()  # initialize time of the last response
-banned_nations = set()  # set of banned nations
+    if authenticated:
+        print(f"{now()} Authentication successful!")
+    else:
+        print(f"{now()} Authentication failed.")
 
-while True:
-    # Load the reports page
-    reports_url = "https://www.nationstates.net/template-overall=none/page=reports"
-    # Define the report settings
-    report_settings = {
-        "report_hours": "0.01",
-        "report_self": "1",
-        "report_region": "1",
-        "report_dossier": "1",
-    }
+    last_time = time.time()  # initialize time of the last response
+    banned_nations = set()  # set of banned nations
 
-    # Include these settings in the POST request to load the reports page
-    reports_response = session._html_request(reports_url, auth=(nation_name, password), data=report_settings)
+    while True:
+        # Load the reports page
+        reports_url = "https://www.nationstates.net/template-overall=none/page=reports"
+        # Define the report settings
+        report_settings = {
+            "report_hours": "0.01",
+            "report_self": "0",
+            "report_region": "1",
+            "report_dossier": "0",
+        }
 
-    current_time = time.time()  # get the current time
-    elapsed_time = (current_time - last_time) * 1000  # calculate the elapsed time in milliseconds
-    print(f"Time elapsed since last response: {elapsed_time} ms")
-    last_time = current_time  # update the time of the last response
+        # Include these settings in the POST request to load the reports page
+        reports_response = session._html_request(reports_url, auth=(nation_name, password), data=report_settings)
 
-    # Process the response with BeautifulSoup
-    reports_soup = BeautifulSoup(reports_response.text, "html.parser")
-    print(reports_response.status_code)
-    
-    # Parse arriving nations
-    for report in reports_soup.find_all('li'):
-        if " arrived from " in report.text:
-            nation = report.find('a', class_='nlink').find('span', class_='nnameblock').text
-            if nation not in banned_nations:
-                success = session.banject(nation)
-                if success:
-                    print(f"Successfully banjected {nation}.")
-                    banned_nations.add(nation)
-                else:
-                    print(f"Failed to banject {nation}.")
-                    banned_nations.add(nation)
+        current_time = time.time()  # get the current time
+        elapsed_time = ((current_time - last_time) * 1000).__round__()  # calculate the elapsed time in milliseconds
+        print(f"{now()} Time elapsed since last response: {elapsed_time} ms")
+        last_time = current_time  # update the time of the last response
+
+        # Process the response with BeautifulSoup
+        reports_soup = BeautifulSoup(reports_response.text, "html.parser")
+        print(now() + " " + reports_response.status_code)
+        
+        # Parse arriving nations
+        for report in reports_soup.find_all('li'):
+            if " arrived from " in report.text:
+                nation = report.find('a', class_='nlink').find('span', class_='nnameblock').text
+                if nation not in banned_nations:
+                    success = session.banject(nation)
+                    if success:
+                        now = datetime.now().strftime("%I:%M:%S %p")
+                        print(f"{now} Successfully banjected {nation}.")
+                        banned_nations.add(nation)
+                    else:
+                        now = datetime.now().strftime("%I:%M:%S %p")
+                        print(f"{now} Failed to banject {nation}.")
+                        banned_nations.add(nation)
+except KeyboardInterrupt:
+    if logging_in:
+      print("\nHellfire closed by user.")
+      quit()
+    else:
+      print("Hellfire closed by user.")
+      quit()
