@@ -68,7 +68,8 @@ try:
 
         # Process the response with BeautifulSoup
         reports_soup = BeautifulSoup(reports_response.text, "html.parser")
-        print(now() + " " + reports_response.status_code)
+        if str(reports_response.status_code) != "200":
+          print(now() + " " + reports_response.status_code)
         
         # Parse arriving nations
         for report in reports_soup.find_all('li'):
