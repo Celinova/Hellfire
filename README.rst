@@ -31,7 +31,7 @@ TO-DO
 - [✔] Add a fancy logo
 - [⭕] fully integrate with nsdotpy to make the code cleaner, instead of calling the private methods directly from the session
 - [⭕] faster pageloads
-- [⭕] keeps track of banned nations from the reports page so it doesn't have to iterate through already banned nations by other banners
+- [✔] keeps track of banned nations from the reports page so it doesn't have to iterate through already banned nations by other banners
 - [⭕] set priority for certain nations to be banned
 - [⭕] flask app for mobile users
 - [⭕] more coming ahead
